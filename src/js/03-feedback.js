@@ -13,7 +13,7 @@ feedbackFormEl.addEventListener('submit', onFormSubmit);
 
 function onTextareaInput(e) {
   formInputValues[e.target.name] = e.target.value;
-  //записуємо у Local Storage введенні данні 
+  //записуємо у Local Storage введенні данні
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formInputValues));
 }
 
@@ -25,14 +25,17 @@ function onFormSubmit(e) {
   } = e.currentTarget;
 
   if (email.value === '' || message.value === '') {
-    return alert('Заповніть усі поля!');
+    return alert('Заповнені не усі поля');
   }
   console.log({ email: email.value, message: message.value });
-
   e.currentTarget.reset();
+  removeInputValues();
+}
+//ф-ція яка очищує заповнені поля після відправлення форми 
+function removeInputValues() {
+  formInputValues = { email: '', message: '' };
   localStorage.removeItem(STORAGE_KEY);
 }
-
 //ф-ція яка повертає заповнені поля форми при перезавантаженні сторінки
 function contantInput() {
   const inputValue = localStorage.getItem(STORAGE_KEY);
